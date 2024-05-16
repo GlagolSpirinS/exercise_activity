@@ -17,6 +17,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private EditText editTextTitle, editTextDescription;
     private ImageView imageViewIcon;
     private int selectedIcon = R.drawable.ic_default_icon;
+    private int noteId = -1;
 
     private int[] iconArray = {
             R.drawable.meditation,
@@ -35,29 +36,35 @@ public class AddNoteActivity extends AppCompatActivity {
         editTextDescription = findViewById(R.id.editTextDescription);
         imageViewIcon = findViewById(R.id.imageViewIcon);
 
-        imageViewIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showIconDialog();
-            }
-        });
+        imageViewIcon.setOnClickListener(v -> showIconDialog());
 
         FloatingActionButton fab = findViewById(R.id.fabSave);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String title = editTextTitle.getText().toString();
-                String description = editTextDescription.getText().toString();
+        fab.setOnClickListener(v -> saveNote());
 
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("title", title);
-                resultIntent.putExtra("description", description);
-                resultIntent.putExtra("icon", selectedIcon);
-                setResult(RESULT_OK, resultIntent);
-                finish();
-            }
-        });
+        // Получение данных из Intent для редактирования
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("id")) {
+            noteId = intent.getIntExtra("id", -1);
+            editTextTitle.setText(intent.getStringExtra("title"));
+            editTextDescription.setText(intent.getStringExtra("description"));
+            selectedIcon = intent.getIntExtra("icon", R.drawable.ic_default_icon);
+            imageViewIcon.setImageResource(selectedIcon);
+        }
     }
+
+    private void saveNote() {
+        String title = editTextTitle.getText().toString();
+        String description = editTextDescription.getText().toString();
+
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("id", noteId);
+        resultIntent.putExtra("title", title);
+        resultIntent.putExtra("description", description);
+        resultIntent.putExtra("icon", selectedIcon);
+        setResult(RESULT_OK, resultIntent);
+        finish();
+    }
+
     private void showIconDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -68,13 +75,13 @@ public class AddNoteActivity extends AppCompatActivity {
         IconAdapter iconAdapter = new IconAdapter(this, iconArray);
         gridView.setAdapter(iconAdapter);
 
-        AlertDialog dialog = builder.create();
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             selectedIcon = iconArray[position];
             imageViewIcon.setImageResource(selectedIcon);
-            dialog.dismiss();
+            // Закрытие диалога после выбора иконки
+            builder.create().dismiss();
         });
 
-        dialog.show();
+        builder.create().show();
     }
 }

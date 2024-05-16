@@ -10,21 +10,21 @@ import android.widget.ImageView;
 public class IconAdapter extends BaseAdapter {
 
     private Context context;
-    private int[] icons;
+    private int[] iconArray;
 
-    public IconAdapter(Context context, int[] icons) {
+    public IconAdapter(Context context, int[] iconArray) {
         this.context = context;
-        this.icons = icons;
+        this.iconArray = iconArray;
     }
 
     @Override
     public int getCount() {
-        return icons.length;
+        return iconArray.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return icons[position];
+        return iconArray[position];
     }
 
     @Override
@@ -39,7 +39,7 @@ public class IconAdapter extends BaseAdapter {
         }
 
         ImageView imageView = convertView.findViewById(R.id.icon_image);
-        imageView.setImageResource(icons[position]);
+        imageView.setImageResource(iconArray[position]);
 
         return convertView;
     }

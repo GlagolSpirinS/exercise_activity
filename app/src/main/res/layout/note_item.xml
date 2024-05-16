@@ -30,4 +30,13 @@
             android:layout_height="wrap_content"
             android:textSize="14sp" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/noteDeleteIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center_vertical"
+        android:padding="8dp"
+        android:src="@drawable/delete_icon" />
+
 </LinearLayout>
