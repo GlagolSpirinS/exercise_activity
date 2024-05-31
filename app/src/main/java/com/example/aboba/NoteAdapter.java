@@ -37,6 +37,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.title.setText(note.getTitle());
         holder.description.setText(note.getDescription());
         holder.icon.setImageResource(note.getIcon());
+        holder.date.setText(note.getDate());
 
         holder.itemView.setOnClickListener(v -> onNoteClickListener.onNoteClick(note));
         holder.deleteIcon.setOnClickListener(v -> onNoteClickListener.onDeleteClick(note));
@@ -53,13 +54,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     }
 
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
-        TextView title, description;
+        TextView title, description, date;
         ImageView icon, deleteIcon;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.note_title);
             description = itemView.findViewById(R.id.note_description);
+            date = itemView.findViewById(R.id.note_date);
             icon = itemView.findViewById(R.id.note_icon);
             deleteIcon = itemView.findViewById(R.id.noteDeleteIcon);
         }

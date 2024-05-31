@@ -11,11 +11,13 @@ public class Note {
     private String title;
     private String description;
     private int icon;
+    private String date;
 
-    public Note(String title, String description, int icon) {
+    public Note(String title, String description, int icon, String date) {
         this.title = title;
         this.description = description;
         this.icon = icon;
+        this.date = date;
     }
 
     // Getters and setters
@@ -27,4 +29,7 @@ public class Note {
     public void setDescription(String description) { this.description = description; }
     public int getIcon() { return icon; }
     public void setIcon(int icon) { this.icon = icon; }
+
+    public String getDate() {return date;}
+    public void setDate(int date) {this.date = String.valueOf(date); }
 }

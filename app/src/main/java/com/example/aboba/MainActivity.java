@@ -43,14 +43,15 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
             String title = data.getStringExtra("title");
             String description = data.getStringExtra("description");
             int icon = data.getIntExtra("icon", R.drawable.ic_default_icon);
+            String date = data.getStringExtra("date");
 
             if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
-                Note note = new Note(title, description, icon);
+                Note note = new Note(title, description, icon, date);
                 saveNoteToDatabase(note);
             } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
                 int id = data.getIntExtra("id", -1);
                 if (id != -1) {
-                    Note note = new Note(title, description, icon);
+                    Note note = new Note(title, description, icon, date);
                     note.setId(id);
                     updateNoteInDatabase(note);
                 }

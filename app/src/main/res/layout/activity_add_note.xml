@@ -28,6 +28,18 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_default_icon" />
 
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fabSave"
+        android:layout_marginStart="284dp"
+        android:layout_marginBottom="451dp"
+        android:layout_toEndOf="@+id/imageViewIcon"
+        android:text="Дата"
+        android:textSize="18sp" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabSave"
         android:layout_width="wrap_content"

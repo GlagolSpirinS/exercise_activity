@@ -7,10 +7,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class AddNoteActivity extends AppCompatActivity {
 
@@ -18,6 +24,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private ImageView imageViewIcon;
     private int selectedIcon = R.drawable.ic_default_icon;
     private int noteId = -1;
+    private TextView textViewDate;
 
     private int[] iconArray = {
             R.drawable.meditation,
@@ -31,6 +38,10 @@ public class AddNoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
+
+        textViewDate = findViewById(R.id.textViewDate);
+        String currentDate = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(new Date());
+        textViewDate.setText(currentDate);
 
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextDescription = findViewById(R.id.editTextDescription);
@@ -55,12 +66,14 @@ public class AddNoteActivity extends AppCompatActivity {
     private void saveNote() {
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
+        String date = textViewDate.getText().toString();
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra("id", noteId);
         resultIntent.putExtra("title", title);
         resultIntent.putExtra("description", description);
         resultIntent.putExtra("icon", selectedIcon);
+        resultIntent.putExtra("date", date);
         setResult(RESULT_OK, resultIntent);
         finish();
     }
