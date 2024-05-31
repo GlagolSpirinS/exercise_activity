@@ -24,21 +24,20 @@
         android:id="@+id/imageViewIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextDescription"
+        android:layout_centerVertical="true"
         android:layout_margin="16dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginBottom="5dp"
         android:src="@drawable/ic_default_icon" />
 
-
-    <TextView
+    <ImageView
         android:id="@+id/textViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/fabSave"
-        android:layout_marginStart="284dp"
-        android:layout_marginBottom="451dp"
-        android:layout_toEndOf="@+id/imageViewIcon"
-        android:text="Дата"
-        android:textSize="18sp" />
+        android:src="@drawable/ic_date"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="180dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabSave"
