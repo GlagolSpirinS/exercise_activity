@@ -24,22 +24,17 @@
         android:id="@+id/imageViewIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="34dp"
-        android:layout_marginEnd="289dp"
-        android:layout_marginBottom="522dp"
-        android:layout_toStartOf="@+id/textViewDate"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="40dp"
         android:src="@drawable/ic_default_icon" />
 
-    <ImageView
-        android:id="@+id/textViewDate"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_date"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="180dp"/>
+        android:id="@+id/textViewDate"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="40dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabSave"
