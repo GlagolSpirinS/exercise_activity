@@ -26,6 +26,12 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="40dp"
+<<<<<<< HEAD
+        android:adjustViewBounds="true"
+        android:maxWidth="100dp"
+        android:maxHeight="100dp"
+=======
+>>>>>>> origin/main
         android:src="@drawable/ic_default_icon" />
 
     <TextView

@@ -12,6 +12,15 @@ import java.util.List;
 @Dao
 public interface NoteDao {
 
+    @Query("SELECT * FROM notes WHERE title LIKE :query OR description LIKE :query")
+    List<Note> searchNotes(String query);
+
+    @Query("SELECT * FROM notes WHERE date = :date")
+    List<Note> filterNotesByDate(String date);
+
+    @Query("SELECT * FROM notes WHERE (title LIKE :query OR description LIKE :query) AND (:date IS NULL OR date = :date)")
+    List<Note> searchNotesWithDate(String query, String date);
+
     @Query("SELECT * FROM notes")
     List<Note> getAllNotes();
 

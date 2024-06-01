@@ -1,21 +1,29 @@
 package com.example.aboba;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executors;
+
+import androidx.appcompat.widget.SearchView;
 
 public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNoteClickListener {
 
     private RecyclerView recyclerView;
     private NoteAdapter adapter;
     private List<Note> noteList;
+    private String selectedDate = null;
     private static final int ADD_NOTE_REQUEST = 1;
     private static final int EDIT_NOTE_REQUEST = 2;
 
@@ -33,8 +41,46 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
             startActivityForResult(intent, ADD_NOTE_REQUEST);
         });
 
+        SearchView searchView = findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchNotes(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchNotes(newText);
+                return true;
+            }
+        });
+
+        FloatingActionButton fabDateFilter = findViewById(R.id.dateButton);
+        fabDateFilter.setOnClickListener(v -> {
+            // Получите текущую дату
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Создайте DatePickerDialog
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    MainActivity.this,
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        // Обработайте выбранную дату
+                        selectedDate = String.format(Locale.getDefault(), "%02d.%02d.%04d", selectedDay, selectedMonth + 1, selectedYear);
+                        filterNotesByDate(selectedDate);
+                    }, year, month, day);
+
+            // Покажите диалог
+            datePickerDialog.show();
+        });
+
         loadNotes();
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -65,6 +111,28 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
             runOnUiThread(() -> {
                 adapter = new NoteAdapter(noteList, this);
                 recyclerView.setAdapter(adapter);
+            });
+        });
+    }
+
+    private void filterNotesByDate(String date) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<Note> filteredNotes = DatabaseClient.getInstance(getApplicationContext())
+                    .getNoteDatabase().noteDao().filterNotesByDate(date);
+            runOnUiThread(() -> {
+                adapter.setNotes(filteredNotes);
+            });
+        });
+    }
+
+    private void searchNotes(String query) {
+        final String dateFilter = selectedDate; // Сохраните выбранную дату
+
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<Note> filteredNotes = DatabaseClient.getInstance(getApplicationContext())
+                    .getNoteDatabase().noteDao().searchNotesWithDate("%" + query + "%", dateFilter);
+            runOnUiThread(() -> {
+                adapter.setNotes(filteredNotes);
             });
         });
     }

@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -66,6 +67,13 @@ public class AddNoteActivity extends AppCompatActivity {
     private void saveNote() {
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
+
+        if (title.isEmpty() || description.isEmpty()) {
+            // Покажите сообщение об ошибке, например, с помощью Toast
+            Toast.makeText(this, "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show();
+            return; // Прекратите сохранение, если поля пустые
+        }
+
         String date = textViewDate.getText().toString();
 
         Intent resultIntent = new Intent();
