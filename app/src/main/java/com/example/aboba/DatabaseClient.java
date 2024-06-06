@@ -12,8 +12,6 @@ public class DatabaseClient {
 
     private DatabaseClient(Context context) {
         this.context = context;
-
-        // Создаем объект базы данных
         noteDatabase = Room.databaseBuilder(context, NoteDatabase.class, "NoteDB").build();
     }
 

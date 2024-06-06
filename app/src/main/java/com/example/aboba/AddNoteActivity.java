@@ -53,7 +53,6 @@ public class AddNoteActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fabSave);
         fab.setOnClickListener(v -> saveNote());
 
-        // Получение данных из Intent для редактирования
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("id")) {
             noteId = intent.getIntExtra("id", -1);
@@ -69,9 +68,8 @@ public class AddNoteActivity extends AppCompatActivity {
         String description = editTextDescription.getText().toString();
 
         if (title.isEmpty() || description.isEmpty()) {
-            // Покажите сообщение об ошибке, например, с помощью Toast
             Toast.makeText(this, "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show();
-            return; // Прекратите сохранение, если поля пустые
+            return;
         }
 
         String date = textViewDate.getText().toString();
@@ -99,7 +97,6 @@ public class AddNoteActivity extends AppCompatActivity {
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             selectedIcon = iconArray[position];
             imageViewIcon.setImageResource(selectedIcon);
-            // Закрытие диалога после выбора иконки
             builder.create().dismiss();
         });
 

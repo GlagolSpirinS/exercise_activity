@@ -58,22 +58,19 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
 
         FloatingActionButton fabDateFilter = findViewById(R.id.dateButton);
         fabDateFilter.setOnClickListener(v -> {
-            // Получите текущую дату
+
             final Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
 
-            // Создайте DatePickerDialog
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     MainActivity.this,
                     (view, selectedYear, selectedMonth, selectedDay) -> {
-                        // Обработайте выбранную дату
                         selectedDate = String.format(Locale.getDefault(), "%02d.%02d.%04d", selectedDay, selectedMonth + 1, selectedYear);
                         filterNotesByDate(selectedDate);
                     }, year, month, day);
 
-            // Покажите диалог
             datePickerDialog.show();
         });
 
@@ -126,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
     }
 
     private void searchNotes(String query) {
-        final String dateFilter = selectedDate; // Сохраните выбранную дату
+        final String dateFilter = selectedDate;
 
         Executors.newSingleThreadExecutor().execute(() -> {
             List<Note> filteredNotes = DatabaseClient.getInstance(getApplicationContext())
