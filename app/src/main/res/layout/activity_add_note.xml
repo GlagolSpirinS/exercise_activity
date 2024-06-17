@@ -42,12 +42,18 @@
         android:src="@drawable/ic_default_icon" />
 
     <TextView
+        android:id="@+id/textViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textViewDate"
+        android:layout_below="@+id/editTextDescription"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="40dp"/>
+        android:layout_marginStart="191dp"
+        android:layout_marginTop="215dp"
+        android:layout_marginEnd="25dp"
+        android:layout_toEndOf="@+id/imageViewIcon"
+        android:drawableStart="@drawable/ic_date"
+        android:drawablePadding="8dp"
+        android:hint="Выберите дату" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabSave"

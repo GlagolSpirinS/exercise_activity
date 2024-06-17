@@ -1,5 +1,6 @@
 package com.example.aboba;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -25,6 +27,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private ImageView imageViewIcon;
     private int selectedIcon = R.drawable.ic_default_icon;
     private int noteId = -1;
+    private int icon = R.drawable.ic_date;
     private TextView textViewDate;
 
     private int[] iconArray = {
@@ -41,6 +44,7 @@ public class AddNoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_note);
 
         textViewDate = findViewById(R.id.textViewDate);
+        textViewDate.setOnClickListener(v -> showDatePickerDialog());
         String currentDate = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(new Date());
         textViewDate.setText(currentDate);
 
@@ -63,6 +67,23 @@ public class AddNoteActivity extends AppCompatActivity {
         }
     }
 
+    private void showDatePickerDialog() {
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                AddNoteActivity.this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    String selectedDate = String.format(Locale.getDefault(), "%02d.%02d.%04d", selectedDay, selectedMonth + 1, selectedYear);
+                    textViewDate.setText(selectedDate);
+                },
+                year, month, day);
+
+        datePickerDialog.show();
+    }
+
     private void saveNote() {
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
@@ -73,6 +94,7 @@ public class AddNoteActivity extends AppCompatActivity {
         }
 
         String date = textViewDate.getText().toString();
+        Note note = new Note(title, description, icon, date);
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra("id", noteId);
