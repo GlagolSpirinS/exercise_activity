@@ -87,14 +87,17 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.OnNot
             String description = data.getStringExtra("description");
             int icon = data.getIntExtra("icon", R.drawable.ic_default_icon);
             String date = data.getStringExtra("date");
+            int exerciseTime = data.getIntExtra("exerciseTime", 0); // Получение времени из Intent
 
             if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
-                Note note = new Note(title, description, icon, date);
+                // Используйте конструктор Note с 5 аргументами:
+                Note note = new Note(title, description, icon, date, exerciseTime);
                 saveNoteToDatabase(note);
             } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
                 int id = data.getIntExtra("id", -1);
                 if (id != -1) {
-                    Note note = new Note(title, description, icon, date);
+                    // Используйте конструктор Note с 5 аргументами:
+                    Note note = new Note(title, description, icon, date, exerciseTime);
                     note.setId(id);
                     updateNoteInDatabase(note);
                 }

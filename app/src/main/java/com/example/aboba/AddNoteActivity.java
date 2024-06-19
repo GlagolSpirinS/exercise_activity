@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,8 @@ public class AddNoteActivity extends AppCompatActivity {
     private int noteId = -1;
     private int icon = R.drawable.ic_date;
     private TextView textViewDate;
+
+    private NumberPicker numberPickerExerciseTime;
 
     private int[] iconArray = {
             R.drawable.meditation,
@@ -56,6 +59,10 @@ public class AddNoteActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fabSave);
         fab.setOnClickListener(v -> saveNote());
+
+        numberPickerExerciseTime = findViewById(R.id.numberPickerExerciseTime);
+        numberPickerExerciseTime.setMinValue(0);
+        numberPickerExerciseTime.setMaxValue(120);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("id")) {
@@ -94,7 +101,10 @@ public class AddNoteActivity extends AppCompatActivity {
         }
 
         String date = textViewDate.getText().toString();
-        Note note = new Note(title, description, icon, date);
+        int exerciseTime = numberPickerExerciseTime.getValue(); // Получение времени из NumberPicker
+
+        // Используйте конструктор с 5 аргументами:
+        Note note = new Note(title, description, selectedIcon, date, exerciseTime);
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra("id", noteId);
@@ -102,6 +112,7 @@ public class AddNoteActivity extends AppCompatActivity {
         resultIntent.putExtra("description", description);
         resultIntent.putExtra("icon", selectedIcon);
         resultIntent.putExtra("date", date);
+        resultIntent.putExtra("exerciseTime", exerciseTime); // Добавляем время в Intent
         setResult(RESULT_OK, resultIntent);
         finish();
     }

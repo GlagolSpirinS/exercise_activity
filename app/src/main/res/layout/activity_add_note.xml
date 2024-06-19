@@ -29,6 +29,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0" />
 
+    <NumberPicker
+        android:id="@+id/numberPickerExerciseTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@+id/textViewExerciseTimeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/textViewExerciseTimeLabel" />
+
+    <TextView
+        android:id="@+id/textViewExerciseTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="84dp"
+        android:text="Время упражнения (мин):"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
+
     <ImageView
         android:id="@+id/imageViewIcon"
         android:layout_width="50dp"

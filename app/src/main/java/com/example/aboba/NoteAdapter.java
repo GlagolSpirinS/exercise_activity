@@ -38,7 +38,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.description.setText(note.getDescription());
         holder.icon.setImageResource(note.getIcon());
         holder.date.setText(note.getDate());
-
+        holder.exerciseTime.setText("Время: " + note.getExerciseTime() + " мин");
         holder.itemView.setOnClickListener(v -> onNoteClickListener.onNoteClick(note));
         holder.deleteIcon.setOnClickListener(v -> onNoteClickListener.onDeleteClick(note));
     }
@@ -54,7 +54,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     }
 
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
-        TextView title, description, date;
+        TextView title, description, date, exerciseTime; // добавьте exerciseTime
         ImageView icon, deleteIcon;
 
         public NoteViewHolder(@NonNull View itemView) {
@@ -62,6 +62,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             title = itemView.findViewById(R.id.note_title);
             description = itemView.findViewById(R.id.note_description);
             date = itemView.findViewById(R.id.note_date);
+            exerciseTime = itemView.findViewById(R.id.note_exercise_time); // инициализируйте exerciseTime
             icon = itemView.findViewById(R.id.note_icon);
             deleteIcon = itemView.findViewById(R.id.noteDeleteIcon);
         }
