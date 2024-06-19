@@ -34,7 +34,6 @@ public class Note {
     public void setDescription(String description) { this.description = description; }
     public int getIcon() { return icon; }
     public void setIcon(int icon) { this.icon = icon; }
-
     public void setExerciseTime(int exerciseTime) {
         this.exerciseTime = exerciseTime;
     }

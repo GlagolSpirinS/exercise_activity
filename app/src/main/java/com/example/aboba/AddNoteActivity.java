@@ -3,6 +3,7 @@ package com.example.aboba;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -101,10 +102,11 @@ public class AddNoteActivity extends AppCompatActivity {
         }
 
         String date = textViewDate.getText().toString();
-        int exerciseTime = numberPickerExerciseTime.getValue(); // Получение времени из NumberPicker
+        int exerciseTime = numberPickerExerciseTime.getValue();
 
-        // Используйте конструктор с 5 аргументами:
         Note note = new Note(title, description, selectedIcon, date, exerciseTime);
+
+        Log.d("AddNoteActivity", "Сохранение заметки: " + note.toString());
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra("id", noteId);
@@ -112,9 +114,10 @@ public class AddNoteActivity extends AppCompatActivity {
         resultIntent.putExtra("description", description);
         resultIntent.putExtra("icon", selectedIcon);
         resultIntent.putExtra("date", date);
-        resultIntent.putExtra("exerciseTime", exerciseTime); // Добавляем время в Intent
+        resultIntent.putExtra("exerciseTime", exerciseTime);
         setResult(RESULT_OK, resultIntent);
         finish();
+        Log.d("AddNoteActivity", "Заметка успешно сохранена!");
     }
 
     private void showIconDialog() {

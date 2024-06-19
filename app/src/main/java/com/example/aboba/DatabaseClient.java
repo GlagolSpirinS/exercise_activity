@@ -1,6 +1,8 @@
 package com.example.aboba;
 
 import android.content.Context;
+import android.util.Log;
+
 import androidx.room.Room;
 
 public class DatabaseClient {
@@ -17,7 +19,11 @@ public class DatabaseClient {
 
     public static synchronized DatabaseClient getInstance(Context context) {
         if (instance == null) {
-            instance = new DatabaseClient(context);
+            try {
+                instance = new DatabaseClient(context);
+            } catch (Exception e) {
+                Log.e("DatabaseClient", "Ошибка при создании базы данных: " + e.getMessage());
+            }
         }
         return instance;
     }
